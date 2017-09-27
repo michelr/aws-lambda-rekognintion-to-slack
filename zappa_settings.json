@@ -1,0 +1,27 @@
+{
+    "prod": {
+        "lambda_handler": "app.handler",
+        "lambda_description": "Rekognition to Slack (deployed with Zappa)",
+        "aws_region": "eu-west-1", 
+        "profile_name": "michel",
+        "project_name": "rekognition-to-slack",
+        "runtime": "python2.7", 
+        "s3_bucket": "michel-zappa-lambdas",
+        "apigateway_enabled": false,
+        "memory_size": 512,
+        "timeout_seconds": 30,
+        "use_precompiled_packages": true,
+        "debug": true,
+        "keep_warm": false,
+        "role_name": "lambda-execution-role",
+        "events": [{
+            "function": "app.handler",
+            "event_source": {
+                  "arn":  "arn:aws:s3:::lambda-rekognintion",
+                  "events": [
+                    "s3:ObjectCreated:*"
+                  ]
+               }
+            }],
+    }
+}
